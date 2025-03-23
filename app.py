@@ -120,7 +120,8 @@ def view_predictions():
 
 
 # ========================================
-# ✅ Run the app
+# ✅ Run the app with Render Port Fix
 if __name__ == "__main__":
-    print("✅ App is Running on http://127.0.0.1:5000")
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))  # Use PORT from Render, fallback to 10000 locally
+    print(f"✅ App is Running on http://0.0.0.0:{port}")
+    app.run(host='0.0.0.0', port=port, debug=True)

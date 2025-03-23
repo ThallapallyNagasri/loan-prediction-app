@@ -1,5 +1,5 @@
 # ✅ Import necessary libraries
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import joblib
 import numpy as np
 import pandas as pd
@@ -125,7 +125,7 @@ def view_predictions():
 
 
 # ========================================
-# ✅ Charts Page Route (Hue Fixed)
+# ✅ Charts Page Route (No Duplicates)
 @app.route('/charts')
 def charts():
     try:
@@ -138,13 +138,9 @@ def charts():
 
         # Convert predictions to numeric (1 = Approved, 0 = Rejected)
         df['Prediction'] = df['Prediction'].apply(lambda x: 1 if x == 'Approved' else 0)
-
-        # ✅ Fix hue: Convert 'Prediction' to categorical for proper plotting
         df['Prediction'] = df['Prediction'].map({0: 'Rejected', 1: 'Approved'})
 
-        # ✅ Create plots and encode them to display in HTML
-
-        # 1. Approval vs Rejection (Pie Chart)
+        # ✅ Approval vs Rejection (Pie Chart)
         approval_counts = df['Prediction'].value_counts()
         pie_chart = BytesIO()
         plt.figure(figsize=(6, 6))
@@ -155,11 +151,11 @@ def charts():
         pie_chart_base64 = base64.b64encode(pie_chart.read()).decode('utf-8')
         plt.close()
 
-        # 2. Income Distribution (Histogram) - FIXED
+        # ✅ Income Distribution (Once)
         income_chart = BytesIO()
         plt.figure(figsize=(8, 5))
-        sns.histplot(data=df, x='ApplicantIncome', kde=True, hue=df['Prediction'], palette={'Rejected': '#FF6F61', 'Approved': '#6BDF7B'})
-        plt.title('Income Distribution (Approved vs Rejected)', fontsize=14)
+        sns.histplot(data=df, x='ApplicantIncome', kde=True, hue='Prediction', palette={'Rejected': '#FF6F61', 'Approved': '#6BDF7B'})
+        plt.title('Income Distribution', fontsize=14)
         plt.xlabel('Applicant Income')
         plt.ylabel('Frequency')
         plt.savefig(income_chart, format='png')
@@ -175,6 +171,22 @@ def charts():
     except Exception as e:
         print("❌ Error Generating Charts:", str(e))
         return f"<h2>Error generating charts: {str(e)}</h2>"
+
+
+# ========================================
+# ✅ Download Predictions Route
+@app.route('/download-predictions', methods=['GET'])
+def download_predictions():
+    try:
+        # Check if predictions file exists
+        if os.path.exists(predictions_file):
+            return send_file(predictions_file, as_attachment=True)
+        else:
+            return "<h2>No predictions found to download.</h2>"
+
+    except Exception as e:
+        print("❌ Error:", str(e))
+        return f"<h2>Error downloading predictions: {str(e)}</h2>"
 
 
 # ========================================

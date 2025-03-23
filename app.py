@@ -2,9 +2,14 @@
 from flask import Flask, render_template, request, jsonify
 import joblib
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 import csv
 import os
 from datetime import datetime
+from io import BytesIO
+import base64
 
 # ✅ Initialize Flask App
 app = Flask(__name__)
@@ -117,6 +122,59 @@ def view_predictions():
     except Exception as e:
         print("❌ Error:", str(e))
         return f"<h2>Error loading predictions: {str(e)}</h2>"
+
+
+# ========================================
+# ✅ Charts Page Route (Hue Fixed)
+@app.route('/charts')
+def charts():
+    try:
+        # Check if predictions file exists
+        if not os.path.exists(predictions_file):
+            return "<h2>No predictions found.</h2>"
+
+        # Load predictions into DataFrame
+        df = pd.read_csv(predictions_file)
+
+        # Convert predictions to numeric (1 = Approved, 0 = Rejected)
+        df['Prediction'] = df['Prediction'].apply(lambda x: 1 if x == 'Approved' else 0)
+
+        # ✅ Fix hue: Convert 'Prediction' to categorical for proper plotting
+        df['Prediction'] = df['Prediction'].map({0: 'Rejected', 1: 'Approved'})
+
+        # ✅ Create plots and encode them to display in HTML
+
+        # 1. Approval vs Rejection (Pie Chart)
+        approval_counts = df['Prediction'].value_counts()
+        pie_chart = BytesIO()
+        plt.figure(figsize=(6, 6))
+        plt.pie(approval_counts, labels=['Rejected', 'Approved'], autopct='%1.1f%%', colors=['#FF6F61', '#6BDF7B'])
+        plt.title('Approval vs Rejection Rate', fontsize=14)
+        plt.savefig(pie_chart, format='png')
+        pie_chart.seek(0)
+        pie_chart_base64 = base64.b64encode(pie_chart.read()).decode('utf-8')
+        plt.close()
+
+        # 2. Income Distribution (Histogram) - FIXED
+        income_chart = BytesIO()
+        plt.figure(figsize=(8, 5))
+        sns.histplot(data=df, x='ApplicantIncome', kde=True, hue=df['Prediction'], palette={'Rejected': '#FF6F61', 'Approved': '#6BDF7B'})
+        plt.title('Income Distribution (Approved vs Rejected)', fontsize=14)
+        plt.xlabel('Applicant Income')
+        plt.ylabel('Frequency')
+        plt.savefig(income_chart, format='png')
+        income_chart.seek(0)
+        income_chart_base64 = base64.b64encode(income_chart.read()).decode('utf-8')
+        plt.close()
+
+        # ✅ Render the charts.html page with images
+        return render_template('charts.html',
+                               pie_chart=pie_chart_base64,
+                               income_chart=income_chart_base64)
+
+    except Exception as e:
+        print("❌ Error Generating Charts:", str(e))
+        return f"<h2>Error generating charts: {str(e)}</h2>"
 
 
 # ========================================

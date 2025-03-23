@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Prediction Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Prediction Result</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,21 +29,29 @@
             font-size: 24px;
             font-weight: bold;
         }
-        a {
-            display: block;
+        .back-btn {
             margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
             text-decoration: none;
-            color: blue;
         }
     </style>
 </head>
 <body>
     <div class="result-box">
-        <h2>Loan Prediction Result</h2>
-        <p class="{% if result == 'Approved' %}approved{% else %}rejected{% endif %}">
-            Your loan application is: <strong>{{ result }}</strong>
-        </p>
-        <a href="/">Go Back</a>
+        <h1>Loan Prediction Result</h1>
+        <p>Your loan application is:</p>
+        {% if prediction == "Approved" %}
+            <p class="approved">{{ prediction }}</p>
+        {% else %}
+            <p class="rejected">{{ prediction }}</p>
+        {% endif %}
+        <a href="/" class="back-btn">Go Back</a>
     </div>
 </body>
 </html>

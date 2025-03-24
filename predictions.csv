@@ -1,4 +1,0 @@
-Timestamp,Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area,Prediction
-2025-03-23 20:23:52.355342,1.0,1.0,0.0,1.0,1.0,1333.0,13331.0,3313.0,244.0,1.0,2.0,Approved
-2025-03-23 20:27:17.139684,1.0,1.0,0.0,1.0,1.0,244.0,144.0,334.0,45355.0,1.0,2.0,Approved
-2025-03-23 21:07:14.821766,1.0,1.0,0.0,1.0,1.0,233.0,3334425.0,255245.0,134.0,1.0,2.0,Rejected

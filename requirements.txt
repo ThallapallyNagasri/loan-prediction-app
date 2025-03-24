@@ -1,0 +1,11 @@
+Flask
+gunicorn
+numpy
+pandas
+scikit-learn
+joblib
+imbalanced-learn
+tensorflow
+matplotlib
+seaborn
+requests

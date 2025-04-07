@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Prediction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{{ url_for('static', filename='images/bgimg1.png') }}") no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
+            padding-left: 100px; /* Increased space for back button */
+        }
+
+        .back-button {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 1001;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            top: 30px;
+            right: 0;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* ===== About Us & Overview Sections (Centered) ===== */
+        .toggle-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            z-index: 1001;
+        }
+
+        .toggle-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== Show Section on Click ===== */
+        #about-section:target, #overview-section:target {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="{{ url_for('index') }}" class="back-button">⬅ Back</a>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Loan Prediction System</div>
+        <div class="nav-links">
+            <a href="#about-section">About Us</a>
+            <a href="#overview-section">Overview</a>
+            <div class="dropdown">
+                <a href="#">Select Role ▼</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('login', role='admin') }}">Admin</a>
+                    <a href="{{ url_for('login', role='customer') }}">Customer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Welcome to the Loan Prediction System</h1>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about-section" class="toggle-section">
+        <h2>About Us</h2>
+        <p>The Loan Prediction System helps financial institutions assess loan eligibility based on historical data and advanced machine learning models. Our system aims to improve decision-making and streamline the loan approval process efficiently.</p>
+    </div>
+
+    <!-- Overview Section -->
+    <div id="overview-section" class="toggle-section">
+        <h2>Project Overview</h2>
+        <p>
+            This project explores Machine Learning (ML) and Deep Learning (DL) techniques to improve loan prediction accuracy in banking.
+            It evaluates models using ensemble methods and data balancing
+            techniques to handle imbalanced datasets. The system aims to streamline decision-making, reduce risk, and enhance transparency
+            for financial institutions.
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+Timestamp,Username,ApplicantName,DateOfBirth,Occupation,Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area,Prediction,Feedback
+2025-04-07 21:45:36,customer,john,1965-01-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Rejected,Applicant age must be between 18 and 50.
+2025-04-07 21:46:27,abcd1,john,1986-10-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 21:48:08,abcd1,john,1986-10-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 21:52:52,abcd1,john,1986-10-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 21:53:11,abcd1,john,1990-10-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 22:04:08,abcd1,john,1990-10-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 22:05:48,customer,john,1995-12-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
+2025-04-07 22:16:23,customer,john,1998-05-23,Business,1,1,0,1,1,10000,0,100000.0,365.0,1,2,Approved,"Loan approved based on age, income, DTI, and credit history."
